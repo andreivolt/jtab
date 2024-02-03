@@ -2,6 +2,8 @@ use std::io::{BufRead, Read};
 
 use serde_json::{Map, Value};
 
+use anyhow::Result;
+
 pub trait ValueReader {
     fn read_value(self, take: Option<usize>) -> anyhow::Result<Value>;
 }
@@ -127,7 +129,9 @@ impl<R: BufRead> ValueReader for CsvReader<R> {
 mod tests {
     use serde_json::json;
 
-    use crate::reader::{anyhow::Result, CsvReader, CsvReaderOptions};
+    use anyhow::Result;
+
+    use crate::reader::{CsvReader, CsvReaderOptions};
     use crate::ValueReader;
 
     #[test]
